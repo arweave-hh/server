@@ -34,5 +34,12 @@ export const apiKey = sqliteTable("api_key", {
   userId: text("user_id")
     .notNull()
     .references(() => users.id),
-  apiKey: text("api_key").notNull(),
-}); 
+});
+
+export const data = sqliteTable("data", {
+  id: text("id").primaryKey(),
+  transactionId: text("transaction_id"),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id),
+});

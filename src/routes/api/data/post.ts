@@ -2,7 +2,7 @@ import { irys } from "../../../services/irys";
 import { Metadata } from "../../../types";
 import { INTERNAL_SERVER_ERROR, NOT_FOUND, parseJSON } from "../../response";
 
-export default async function upload({ data, metadata }: { data: Buffer, metadata: Metadata }): Promise<Response> {
+export default async function post({ data, metadata }: { data: Buffer, metadata: Metadata }): Promise<Response> {
   if (!data) {
     return NOT_FOUND;
   }
@@ -13,5 +13,4 @@ export default async function upload({ data, metadata }: { data: Buffer, metadat
     console.log(e);
   }
   return INTERNAL_SERVER_ERROR;
-
 }
