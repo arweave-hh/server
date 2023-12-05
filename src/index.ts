@@ -2,11 +2,12 @@ import { logger } from '@bogeychan/elysia-logger';
 import { cors } from '@elysiajs/cors';
 import { swagger } from '@elysiajs/swagger';
 import { Elysia, t } from "elysia";
-import { authenticated, authentication } from './routes/auth';
+import { authenticated, unauthenticated } from './routes/auth';
 import { UNAUTHORIZED, parseJSON } from './routes/response';
 import { auth } from './services';
 import { setup } from './utils';
 import signOut from './routes/auth/signOut';
+import { images } from './routes/v1/image';
 
 export const app = new Elysia()
   .use(logger({}))
@@ -35,7 +36,7 @@ export const app = new Elysia()
   .use(swagger({}))
   .get("/", () => parseJSON({"message": "hello world"}))
   .use(setup)
-  .use(authentication)
+  .use(unauthenticated)
   .guard({
     beforeHandle: async ({ request }) => {
       let sessionId;
@@ -52,6 +53,7 @@ export const app = new Elysia()
     }
   }, (app) => app
   .use(authenticated)
+  .use(images)
   )
   .listen(3000);
 

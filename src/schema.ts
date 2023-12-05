@@ -2,7 +2,8 @@ import { blob, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("user", {
   id: text("id").primaryKey(),
-  email: text("email").unique().notNull(),
+  email: text("email").unique(),
+  address: text("address").unique(),
 });
 
 export const session = sqliteTable("user_session", {
@@ -36,8 +37,9 @@ export const apiKeys = sqliteTable("api_keys", {
 
 export const images = sqliteTable("images", {
   id: text("id").primaryKey(),
-  transactionId: text("transaction_id"),
   userId: text("user_id")
     .notNull()
     .references(() => users.id),
+  path: text("path").notNull(),
+  transactionId: text("transaction_id"),
 });

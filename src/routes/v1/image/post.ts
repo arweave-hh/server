@@ -1,29 +1,23 @@
-import { eq } from "drizzle-orm";
-import { users } from "../../../schema";
+import { and, eq, inArray } from "drizzle-orm";
+import { images, users } from "../../../schema";
 import { database } from "../../../services";
-import { irys } from "../../../services/irys";
-import { User } from "../../../types";
-import { INTERNAL_SERVER_ERROR, NOT_FOUND, parseJSON } from "../../response";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, NO_CONTENT } from "../../response";
 
-export default async function post({ userId, files }: { userId: string, files: File[] }): Promise<Response> {
-  let user: User;
-  let result: string[];
-  let data: Buffer[];
+export default async function post({ userId, imageIds }: { userId: string; imageIds: string[]; }): Promise<Response> {
+  let data: { id: string; path: string; }[] = [];
   try {
-    const response = await database.query.users.findFirst({ where: eq(users.id, userId) });
-    if (!response) {
+    const response = await database.query.images.findMany({ where: and(inArray(images.id, imageIds), eq(users.id, userId)) });
+    if (response.length === 0) {
       return NOT_FOUND;
     }
-    user = response;
+    for (const _image of response) {
+      data.push(_image);
+    }
   } catch (e) {
     console.log(e);
-    return INTERNAL_SERVER_ERROR;
-  }
-  if (!data) {
-    return NOT_FOUND;
   }
   try {
-    const receipt = await irys.upload(data);
+    return NO_CONTENT;
   } catch (e) {
     console.log(e);
   }

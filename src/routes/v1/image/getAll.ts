@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
-import { data, users } from "../../../schema";
+import { images, users } from "../../../schema";
 import { database } from "../../../services";
-import { INTERNAL_SERVER_ERROR, NOT_FOUND, parseJSON } from "../../response";
-import { User } from "../../../types";
 import { query } from "../../../services/query";
+import { User } from "../../../types";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, parseJSON } from "../../response";
 
 export default async function getAll({ userId }: { userId: string }): Promise<Response> {
   let transactions: string[];
@@ -21,7 +21,7 @@ export default async function getAll({ userId }: { userId: string }): Promise<Re
   }
 
   try {
-    const response = await database.select({ transactionId: data.transactionId }).from(data).where(eq(users.id, userId));
+    const response = await database.select({ transactionId: images.transactionId }).from(images).where(eq(users.id, userId));
     transactions = Array.from(response.map(({ transactionId }) => transactionId ?? "").filter((d) => d != ""));
   } catch (e) {
     console.log(e);

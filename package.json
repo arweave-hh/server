@@ -4,6 +4,7 @@
   "type": "module",
   "devDependencies": {
     "@types/imagemin": "^8.0.5",
+    "@types/imagemin-webp": "^7.0.3",
     "bun-types": "latest",
     "drizzle-kit": "^0.20.6"
   },
@@ -21,6 +22,11 @@
     "arweave": "^1.14.4",
     "drizzle-orm": "^0.29.1",
     "elysia": "^0.7.29",
+    "imagemin": "^8.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.1",
     "lucia": "^2.7.4",
     "zod": "^3.22.4"
   },

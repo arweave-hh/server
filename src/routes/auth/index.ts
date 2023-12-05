@@ -1,16 +1,26 @@
 import Elysia, { t } from "elysia";
 import { setup } from "../../utils";
-import signIn from "./signIn";
-import signUp from "./signUp";
-import signOut from "./signOut";
 import generateAPIKey from "./generateAPIKey";
+import generateMessage from "./generateMessage";
+import signIn from "./signIn";
+import signOut from "./signOut";
+import signUp from "./signUp";
+import verifyMessage from "./verifyMessage";
 
-export const authenticated = new Elysia({ name: "unauthenticated" })
+export const authenticated = new Elysia({ name: "authenticated" })
   .use(setup)
-  .post("/sign-out", ({ userId }) => signOut({ userId }))
-  .post("/generate-api-key", ({ userId }) => generateAPIKey({ userId }));
+  .post("/sign-out", ({ userId }) => signOut({ userId }), {
+    detail: {
+      tags: ["Auth"]
+    }
+  })
+  .post("/generate-api-key", ({ userId }) => generateAPIKey({ userId }), {
+    detail: {
+      tags: ["Auth"]
+    }
+  })
 
-export const authentication = new Elysia({ name: "authentication" })
+export const unauthenticated = new Elysia({ name: "unauthenticated" })
   .use(setup)
   .post(
     "/sign-up",
@@ -22,6 +32,9 @@ export const authentication = new Elysia({ name: "authentication" })
         password: t.String(),
         confirmPassword: t.String(),
       }),
+      detail: {
+        tags: ["Auth"]
+      }
     })
   .post(
     "/sign-in",
@@ -31,4 +44,19 @@ export const authentication = new Elysia({ name: "authentication" })
         email: t.String(),
         password: t.String()
       }),
+      detail: {
+        tags: ["Auth"]
+      }
     })
+  .post("/generate-message", ({ body: { address } }) => generateMessage({ address }), {
+    body: t.Object({ address: t.String() }),
+    detail: {
+      tags: ["Auth"]
+    }
+  })
+  .post("/verify-message", ({ body: { address, message, signature } }) => verifyMessage({ address, signature, message }), {
+    body: t.Object({ address: t.String(), signature: t.String(), message: t.String() }),
+    detail: {
+      tags: ["Auth"]
+    }
+  });
