@@ -2,10 +2,10 @@ import { logger } from '@bogeychan/elysia-logger';
 import { cors } from '@elysiajs/cors';
 import { swagger } from '@elysiajs/swagger';
 import { Elysia, t } from "elysia";
-import { BAD_REQUEST, UNAUTHORIZED } from './routes/response';
+import { generate, signOut } from './routes/auth';
+import { UNAUTHORIZED } from './routes/response';
 import { auth } from './services';
-import { verify } from './utils';
-import { generate } from './routes/auth';
+import { setup } from './utils';
 
 export const app = new Elysia()
   .use(logger({}))
@@ -32,7 +32,8 @@ export const app = new Elysia()
     credentials: true,
   }))
   .use(swagger({}))
-  .get("/auth/verify", ({ body }) => generate(body),
+  .use(setup)
+  .post("/auth/verify", ({ body }) => generate(body),
     { body: t.Object({ address: t.String(), signature: t.String() }) }
   )
   .guard({
@@ -50,6 +51,7 @@ export const app = new Elysia()
       }
     }
   }, (app) => app
+    .post("/sign-out", ({ request, userId }) => signOut({ userId, cookie: request.headers.get("cookie") ?? "" }))
   )
   .listen(3000);
 
