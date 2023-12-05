@@ -52,6 +52,7 @@ export const app = new Elysia()
     }
   }, (app) => app
     .post("/sign-out", ({ request, userId }) => signOut({ userId, cookie: request.headers.get("cookie") ?? "" }))
+    .get("/data", ({userId}) => data())
   )
   .listen(3000);
 
