@@ -5,6 +5,7 @@ import { Elysia, t } from "elysia";
 import { BAD_REQUEST, UNAUTHORIZED } from './routes/response';
 import { auth } from './services';
 import { verify } from './utils';
+import { generate } from './routes/auth';
 
 export const app = new Elysia()
   .use(logger({}))
@@ -31,13 +32,8 @@ export const app = new Elysia()
     credentials: true,
   }))
   .use(swagger({}))
-  .get("/auth/verify", ({ body: { signature } }) => {
-    if (!verify(signature)) {
-      return BAD_REQUEST;
-    }
-    return new Response(null, { status: 200 });
-  }, 
-  { body: t.Object({ signature: t.String() }) }
+  .get("/auth/verify", ({ body }) => generate(body),
+    { body: t.Object({ address: t.String(), signature: t.String() }) }
   )
   .guard({
     beforeHandle: async ({ request }) => {
@@ -54,7 +50,6 @@ export const app = new Elysia()
       }
     }
   }, (app) => app
-
   )
   .listen(3000);
 
