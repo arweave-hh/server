@@ -1,5 +1,5 @@
 export default {
-  schema: "./src/schema.js",
+  schema: "./src/schema.ts",
   driver: 'turso',
   dbCredentials: {
     url: process.env.DATABASE_URL,

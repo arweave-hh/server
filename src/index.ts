@@ -2,7 +2,7 @@ import { logger } from '@bogeychan/elysia-logger';
 import { cors } from '@elysiajs/cors';
 import { swagger } from '@elysiajs/swagger';
 import { Elysia } from "elysia";
-import { UNAUTHORIZED } from './response';
+import { UNAUTHORIZED } from './routes/response';
 
 export const app = new Elysia()
   .use(logger({}))
@@ -34,7 +34,7 @@ export const app = new Elysia()
       let sessionId;
       let session;
       try {
-        
+
       } catch (e) {
         console.log(e);
       }

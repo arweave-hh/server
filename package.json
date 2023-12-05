@@ -4,7 +4,8 @@
   "type": "module",
   "devDependencies": {
     "@types/imagemin": "^8.0.5",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^0.20.6"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
