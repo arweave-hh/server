@@ -1,1 +1,1 @@
-export {default as getUserByAddress} from "./users/getUserByAddress"
+export { default as getUserByAddress } from "./users/getUserByAddress";

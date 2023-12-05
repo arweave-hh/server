@@ -9,7 +9,6 @@ import { INTERNAL_SERVER_ERROR, NOT_FOUND, parseJSON } from "../response";
  * @returns {Promise<Response>}
  */
 export default async function profile({ userId }) {
-  console.log(userId);
   try {
     const user = await database.query.users.findFirst({
       where: eq(users.id, userId)
