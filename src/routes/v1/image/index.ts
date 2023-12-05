@@ -7,6 +7,8 @@ import post from "./post";
 
 export const images = new Elysia({ name: "image" })
   .use(setup)
-  .get("/image", ({ userId }) => getAll({ userId }))
-  .post("/image", ({ userId, body: { imageIds } }) => post({ userId, imageIds }), { body: t.Object({ imageIds: t.Array(t.String()) }) })
-  .post("/image/compress", ({ userId, body: { files, compressBy } }) => compress({ files, compressBy, userId }), { body: t.Object({ files: t.Files(), compressBy: t.Array(t.Number()) }) })
+  .get("/image", ({ userId }) => getAll({ userId }), {
+    detail: { tags: ["Images"] }
+  })
+  .post("/image/upload", ({ userId, body: { imageIds } }) => post({ userId, imageIds }), { body: t.Object({ imageIds: t.Array(t.String()) }), detail: {tags: ["Images"]}})
+  .post("/image/compress", ({ userId, body: { files, compressBy } }) => compress({ files, compressBy, userId }), { body: t.Object({ files: t.Files(), compressBy: t.Array(t.Number()) }), detail: {tags: ["Images"]} })
