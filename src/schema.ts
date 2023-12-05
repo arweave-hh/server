@@ -1,11 +1,8 @@
-import { relations } from "drizzle-orm";
 import { blob, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("user", {
   id: text("id").primaryKey(),
   email: text("email").unique().notNull(),
-  username: text("username").unique().notNull(),
-  avatar: text("avatar"),
 });
 
 export const session = sqliteTable("user_session", {
@@ -29,14 +26,15 @@ export const key = sqliteTable("user_key", {
   hashedPassword: text("hashed_password")
 });
 
-export const apiKey = sqliteTable("api_key", {
+export const apiKeys = sqliteTable("api_keys", {
   id: text("id").primaryKey(),
   userId: text("user_id")
     .notNull()
     .references(() => users.id),
+  key: text("key").notNull(),
 });
 
-export const data = sqliteTable("data", {
+export const images = sqliteTable("images", {
   id: text("id").primaryKey(),
   transactionId: text("transaction_id"),
   userId: text("user_id")

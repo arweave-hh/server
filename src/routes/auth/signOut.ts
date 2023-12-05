@@ -1,17 +1,21 @@
 import { auth } from "../../services";
-import { UNAUTHORIZED } from "../response";
 
-export default async function signOut({userId, cookie}: { userId: string; cookie: string}) {
+export default async function signOut({ userId }: { userId: string; }) {
   try {
-    const sessionId = await auth.readSessionCookie(cookie);
-    if (!sessionId) {
-      return UNAUTHORIZED;
-    }
-    const session = await auth.getSession(sessionId);
+    const session = await auth.createSession({
+      userId: userId,
+      attributes: {
+      }
+    });
+    // make sure to invalidate the current session!
     await auth.invalidateSession(session.sessionId);
+
+    // for session cookies
+    // create blank session cookie
     const sessionCookie = auth.createSessionCookie(null);
     return new Response(null, {
       headers: {
+        // Location: "/sign-in", // redirect to login page
         "Set-Cookie": sessionCookie.serialize() // delete session cookie
       },
       status: 204

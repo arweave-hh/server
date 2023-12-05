@@ -2,11 +2,11 @@ import { logger } from '@bogeychan/elysia-logger';
 import { cors } from '@elysiajs/cors';
 import { swagger } from '@elysiajs/swagger';
 import { Elysia, t } from "elysia";
-import { generate } from './routes/auth';
-import { UNAUTHORIZED } from './routes/response';
+import { authenticated, authentication } from './routes/auth';
+import { UNAUTHORIZED, parseJSON } from './routes/response';
 import { auth } from './services';
 import { setup } from './utils';
-import { data } from './routes/api/[id]';
+import signOut from './routes/auth/signOut';
 
 export const app = new Elysia()
   .use(logger({}))
@@ -33,13 +33,9 @@ export const app = new Elysia()
     credentials: true,
   }))
   .use(swagger({}))
+  .get("/", () => parseJSON({"message": "hello world"}))
   .use(setup)
-  .post("/auth/generate", ({ body }) => generate(body),
-    { body: t.Object({ address: t.String() }) }
-  )
-  .post("/auth/verify", ({ body }) => generate(body),
-    { body: t.Object({ address: t.String(), message: t.String(), signature: t.String(), }) }
-  )
+  .use(authentication)
   .guard({
     beforeHandle: async ({ request }) => {
       let sessionId;
@@ -55,7 +51,7 @@ export const app = new Elysia()
       }
     }
   }, (app) => app
-    .get("/data", ({ userId }) => data({ userId }))
+  .use(authenticated)
   )
   .listen(3000);
 

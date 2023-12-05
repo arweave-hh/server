@@ -22,6 +22,20 @@
       "when": 1701769265391,
       "tag": "0002_perpetual_sphinx",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1701773418683,
+      "tag": "0003_grey_thor_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1701773784766,
+      "tag": "0004_chunky_peter_parker",
+      "breakpoints": true
     }
   ]
 }

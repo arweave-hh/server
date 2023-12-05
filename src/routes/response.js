@@ -1,6 +1,7 @@
 export const BAD_REQUEST = new Response(null, { status: 400, statusText: "BAD REQUEST" })
 export const INTERNAL_SERVER_ERROR = new Response(null, { status: 500, statusText: "INTERNAL SERVER ERROR" });
 export const NOT_FOUND = new Response(null, { status: 404, statusText: "NOT FOUND" });
+export const NO_CONTENT = new Response(null, {status: "201", statusText: "NO CONTENT"});
 export const UNAUTHORIZED = new Response(null, { status: 401, statusText: "UNAUTHORIZED" });
 /**
  * 
