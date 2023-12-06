@@ -25,6 +25,13 @@ export default async function compress({ userId, files, compressBy }: { userId: 
     paths.push(path);
     size += file.size;
   }
+  await ensureDirectoryExists(`./temp/${userId}/compress`);
+  for (const path of paths) {
+    
+  }
+  // Compress here
+  // /temp/${userId}/compress
+  // calculate size
   try {
     const dataIds: string[] = [];
     const objects = paths.map((path) => {
@@ -33,7 +40,7 @@ export default async function compress({ userId, files, compressBy }: { userId: 
       return { id, path, userId };
     });
     await database.insert(data).values(objects);
-    return parseJSON({ dataIds, size: size * compressBy });
+    return parseJSON({ dataIds, size: /** return size */ size * compressBy });
   } catch (e) {
     console.log(e)
   }
