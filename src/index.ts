@@ -5,7 +5,7 @@ import { Elysia } from "elysia";
 import { authenticated, unauthenticated } from './routes/auth';
 import { UNAUTHORIZED, parseJSON } from './routes/response';
 import { users } from './routes/users';
-import { images } from './routes/v1/data';
+import { data } from './routes/v1/data';
 import { auth } from './services';
 import { setup } from './utils';
 
@@ -54,7 +54,7 @@ export const app = new Elysia()
       }
     }
   }, (app) => app
-    .derive(async ({ request }) => {
+    .derive(async ({ request, body }) => {
       let sessionId;
       let session;
       try {
@@ -68,7 +68,7 @@ export const app = new Elysia()
       }
     })
     .use(authenticated)
-    .use(images)
+    .use(data)
     .use(users)
   )
   .listen(8080);

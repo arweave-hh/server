@@ -5,10 +5,14 @@ import getAll from "./getAll";
 import post from "./post";
 
 
-export const images = new Elysia({ name: "image" })
+export const data = new Elysia({ name: "data" })
   .use(setup)
   .get("/data", ({ userId }) => getAll({ userId }), {
-    detail: { tags: ["Images"] }
+    detail: { tags: ["Data"] }
   })
-  .post("/data/upload", ({ userId, body: { imageIds } }) => post({ userId, imageIds }), { body: t.Object({ imageIds: t.Array(t.String()) }), detail: { tags: ["Images"] } })
-  .post("/data/compress", ({ userId, body: { file, compress_by } }) => compress({ file, compressBy: compress_by, userId }), { body: t.Object({ file: t.File(), compress_by: t.Number() }), detail: { tags: ["Images"] } })
+  .post("/data/upload", ({ userId, body: { dataIds } }) => post({ userId, dataIds }), { body: t.Object({ dataIds: t.Array(t.String()) }), detail: { tags: ["Data"] } })
+  .post("/data/compress", ({ userId, body }) => compress({
+    files: body.files,
+    compressBy: body.compress_by,
+    userId,
+  }), { body: t.Any(), detail: { tags: ["Data"] } })

@@ -3,10 +3,10 @@ import { data, users } from "../../../schema";
 import { database } from "../../../services";
 import { INTERNAL_SERVER_ERROR, NOT_FOUND, NO_CONTENT } from "../../response";
 
-export default async function post({ userId, imageIds }: { userId: string; imageIds: string[]; }): Promise<Response> {
+export default async function post({ userId, dataIds }: { userId: string; dataIds: string[]; }): Promise<Response> {
   let d: { id: string; path: string; }[] = [];
   try {
-    const response = await database.query.data.findMany({ where: and(inArray(data.id, imageIds), eq(users.id, userId)) });
+    const response = await database.query.data.findMany({ where: and(inArray(data.id, dataIds), eq(users.id, userId)) });
     if (response.length === 0) {
       return NOT_FOUND;
     }
