@@ -16,7 +16,7 @@ export default async function profile({ userId }) {
     if (!user) {
       return NOT_FOUND;
     }
-    return parseJSON({ avatar: user.avatar, username: user.username, email: user.email });
+    return parseJSON({ address: user.address, email: user.email });
   } catch (e) {
     console.log(e);
     return INTERNAL_SERVER_ERROR;

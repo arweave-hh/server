@@ -4,4 +4,4 @@ import profile from "./profile";
 
 export const users = new Elysia({ name: "users" })
   .use(setup)
-  .get("/profile", ({ userId }) => profile({ userId }));
+  .get("/profile", ({ userId }) => profile({ userId }), {detail: {tags: ["User"]}});

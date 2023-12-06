@@ -27,7 +27,6 @@ export const unauthenticated = new Elysia({ name: "unauthenticated" })
     ({ body }) => signUp(body),
     {
       body: t.Object({
-        username: t.String(),
         email: t.String(),
         password: t.String(),
         confirmPassword: t.String(),
@@ -59,4 +58,6 @@ export const unauthenticated = new Elysia({ name: "unauthenticated" })
     detail: {
       tags: ["Auth"]
     }
-  });
+  })
+ 
+  ;

@@ -14,6 +14,7 @@
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.0.13",
     "@elysiajs/cors": "^0.7.2",
+    "@elysiajs/eden": "^0.7.6",
     "@elysiajs/swagger": "^0.7.4",
     "@irys/query": "^0.0.2",
     "@irys/sdk": "^0.1.1",
@@ -21,12 +22,7 @@
     "@lucia-auth/adapter-sqlite": "^2.0.1",
     "arweave": "^1.14.4",
     "drizzle-orm": "^0.29.1",
-    "elysia": "^0.7.29",
-    "imagemin": "^8.0.1",
-    "imagemin-gifsicle": "^7.0.0",
-    "imagemin-jpegtran": "^7.0.0",
-    "imagemin-pngquant": "^9.0.2",
-    "imagemin-svgo": "^10.0.1",
+    "elysia": "^0.7.30",
     "lucia": "^2.7.4",
     "zod": "^3.22.4"
   },

@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { images, users } from "../../../schema";
+import { data, users } from "../../../schema";
 import { database } from "../../../services";
 import { query } from "../../../services/query";
 import { User } from "../../../types";
@@ -21,7 +21,7 @@ export default async function getAll({ userId }: { userId: string }): Promise<Re
   }
 
   try {
-    const response = await database.select({ transactionId: images.transactionId }).from(images).where(eq(users.id, userId));
+    const response = await database.select({ transactionId: data.transactionId }).from(data).where(eq(data.userId, userId));
     transactions = Array.from(response.map(({ transactionId }) => transactionId ?? "").filter((d) => d != ""));
   } catch (e) {
     console.log(e);

@@ -29,7 +29,6 @@ export default async function signUp({ email, password, confirmPassword }: {  em
         },
         status: 204
       });
-
     } catch (e) {
       console.log(e);
       return INTERNAL_SERVER_ERROR;

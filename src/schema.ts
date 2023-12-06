@@ -35,7 +35,7 @@ export const apiKeys = sqliteTable("api_keys", {
   key: text("key").notNull(),
 });
 
-export const images = sqliteTable("images", {
+export const data = sqliteTable("data", {
   id: text("id").primaryKey(),
   userId: text("user_id")
     .notNull()
